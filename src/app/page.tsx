@@ -1,8 +1,10 @@
+import Navbar from "../../components/Navbar/Navbar";
+
 const Home = () => {
   return(
-      <div>
-          Testing
-      </div>
+    <div>
+      <Navbar />
+    </div>
   )
 }
 
