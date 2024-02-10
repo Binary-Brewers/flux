@@ -1,6 +1,6 @@
 "use client";
-import Navbar from "../../components/Navbar/Navbar";
-import ImageCapture from "../../components/ImageCapture/ImageCapture";
+import Navbar from "../components/Navbar/Navbar";
+import ImageCapture from "../components/ImageCapture/ImageCapture";
 
 const Home = () => {
   return (

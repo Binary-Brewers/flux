@@ -1,7 +1,7 @@
-"use client";
+// "use client";
 import React, { useState } from 'react';
 import Image from "next/image";
-import FluxLogo from "../../public/flux-no-bg.png";
+import FluxLogo from "../../../public/flux-no-bg.png"
 import Link from "next/link";
 
 const Navbar = () => {
