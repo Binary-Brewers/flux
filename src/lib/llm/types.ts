@@ -20,3 +20,10 @@ export type CaptureImage = {
     mime: string,
     data: string,
 }
+
+export type CaptureType = "objects" | "description" | "story";
+
+export type Vocabulaty = {
+    name: string,
+    translation: string,
+}

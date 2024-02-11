@@ -1,6 +1,6 @@
-import { CaptureImage } from "./types";
+import { CaptureImage, CaptureType } from "./types";
 
-export async function sendCapture(image: CaptureImage, callback: (text: string) => void) {
+export async function sendCaptureStream(image: CaptureImage, callback: (text: string) => void) {
     try {
       const response = await fetch('/api/llm/capture', {
         method: 'POST',
@@ -33,3 +33,23 @@ export async function sendCapture(image: CaptureImage, callback: (text: string) 
       console.error('Error fetching data:', error);
     }
   }
+
+export async function sendCapture(image: CaptureImage, lang: string, type: CaptureType) : Promise<string> {
+  try {
+    const response = await fetch('/api/llm/capture', {
+      method: 'POST',
+      body: JSON.stringify({
+          image: image,
+          lang: lang,
+          type: type,
+          stream: false,
+        }), // Customize messages as needed
+    });
+    const res = await response.json()
+    console.log(res);
+    return res.content || "Error retrieving the response. Try again.";
+  } catch(e: any) {
+    console.log(e);
+    return  "Error retrieving the response. Try again."
+  }
+}
