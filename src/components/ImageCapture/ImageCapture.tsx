@@ -113,7 +113,7 @@ const CameraCapture: React.FC = () => {
         {imageData && (
           <>
             <img src={imageData.src} alt="Captured" className="max-w-md max-h-full object-contain" />
-            <p className="text-center mt-2">{imageData.name}</p> {/* Display the file name and extension */}
+            {/* <p className="text-center mt-2">{imageData.name}</p> Display the file name and extension */}
           </>
         )}
       </div>
