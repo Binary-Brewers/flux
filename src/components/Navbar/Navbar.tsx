@@ -16,7 +16,7 @@ const Navbar = () => {
 
           {/* "Flux" text centered */}
           <div className="flex-grow text-center">
-            <span className="text-2xl font-semibold whitespace-nowrap dark:text-white pl-6">Flux</span>
+            <span className="text-2xl font-semibold whitespace-nowrap dark:text-white pl-7">Flux</span>
           </div>
 
           {/* "Login" button on the right, wrapped with Link for navigation */}
