@@ -32,3 +32,4 @@ export async function sendCapture(image: CaptureImage, callback: (text: string) 
       console.error('Error fetching data:', error);
     }
   }
+

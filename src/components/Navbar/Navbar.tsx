@@ -110,10 +110,12 @@ import Image from "next/image";
 import FluxLogo from "../../../public/flux-no-bg.png";
 import Link from "next/link";
 import { auth } from "@/firebase/clientApp"; // Adjust the import path according to your project structure
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { User, onAuthStateChanged, signOut } from "firebase/auth";
 
 const Navbar = () => {
-  const [user, setUser] = useState(null);
+
+  const [user, setUser] = useState<User|null>(null);
+
 
   useEffect(() => {
     // Listen for auth state changes
