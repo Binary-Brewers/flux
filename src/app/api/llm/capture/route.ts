@@ -1,5 +1,5 @@
 import OpenAIConnector from '@/lib/llm/OpenAIConnector';
-import { CaptureImage } from '@/lib/llm/types';
+import { CaptureImage, Chat } from '@/lib/llm/types';
 import { NextRequest, NextResponse } from 'next/server';
 
 const openAI = new OpenAIConnector();
@@ -9,13 +9,14 @@ export async function POST(request: NextRequest, response: NextResponse) {
     const body = await request.json();
     const image = body.image as CaptureImage;
     const lang = body.lang;
+    const isStream = body.stream || false;
 
     console.log(image);
     if(!image || !image.data || !image.mime || !lang) return NextResponse.json({error: "Missing image."},{status: 422})
 
     const prompt = "From the following picture, analize every distinct object on it. Return ONLY a json object of the format `{vocab: [{name: 'string', translation: 'string'}]}` with translations into " + lang;
 
-    const completionStream = await openAI.getChatCompletionStream({
+    const completionOptions: Chat = {
       messages: [
         {
           role: "system",
@@ -38,35 +39,26 @@ export async function POST(request: NextRequest, response: NextResponse) {
         },
 
       ]
-    });
+    }
 
-    // streaming section
-    // Create encoding to convert token (string) to Uint8Array
-    // const encoder = new TextEncoder();
+    if (!isStream) {
+      const completion = await openAI.getChatCompletion(completionOptions)
 
-    // Create a TransformStream for writing the response as the tokens as generated
-    // const stream = new TransformStream();
-    // const writer = stream.writable.getWriter();
+      return NextResponse.json({
+          message: "Ok",
+          content: completion.choices[0]?.message,
+        }, {
+          status: 200,
+        })
+    }
 
-    // for await (const chunk of completionStream) {
-    //   // await writer.ready;
-    //   // await writer.write(encoder.encode(`${chunk.choices[0].delta.content || ""}`));
-      
-    // }
-    
-    // await writer.ready;
-    // await writer.close();
+
+    const completionStream = await openAI.getChatCompletionStream(completionOptions);
 
     return new Response(completionStream.toReadableStream());
 
-    // return NextResponse.json({
-    //     message: "Ok"
-    //   }, {
-    //     status: 200,
-    //   })
-
-
   } catch(e: any) {
+    console.log(e);
     return NextResponse.json({
         error: e.message
     },

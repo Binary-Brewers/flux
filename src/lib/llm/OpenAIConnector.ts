@@ -1,4 +1,4 @@
-import { ChatCompletionChunk, ChatCompletionCreateParamsBase, ChatCompletionMessageParam } from "openai/resources/chat/completions.mjs";
+import { ChatCompletion, ChatCompletionChunk, ChatCompletionCreateParamsBase, ChatCompletionMessageParam } from "openai/resources/chat/completions.mjs";
 import LlmConnectorAbstract from "./LlmConnectorAbstract";
 import { Chat } from "./types";
 import OpenAI from 'openai';
@@ -32,6 +32,18 @@ export default class OpenAIConnector extends LlmConnectorAbstract {
             console.error(e.message);
             return Promise.resolve(false);
         }
+    }
+
+    public async getChatCompletion(chat: Chat): Promise<ChatCompletion> {
+
+        const completion = await OpenAIConnector.openAI.chat.completions.create({
+            model: OpenAIConnector.model, 
+            stream: false,
+            messages: chat.messages,
+            max_tokens: chat.maxTokens ? chat.maxTokens : 300,
+        })
+
+        return Promise.resolve(completion);
     }
 
     public async getChatCompletionStream(chat: Chat): Promise<Stream<ChatCompletionChunk>> {

@@ -7,6 +7,7 @@ export async function sendCapture(image: CaptureImage, callback: (text: string) 
         body: JSON.stringify({
             image: image,
             lang: "spanish",
+            stream: true,
           }), // Customize messages as needed
       });
       console.log("get body")
