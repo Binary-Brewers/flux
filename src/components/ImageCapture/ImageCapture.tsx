@@ -184,21 +184,21 @@ const CameraCapture: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <div>
+    <div className="flex flex-col items-center justify-start pt-4 h-screen">
+      <div className="w-full max-w-md px-4">
         {!image ? (
-          <button onClick={triggerFileInput} className="px-4 py-2 mb-5 bg-blue-500 text-white rounded hover:bg-blue-700">
+          <button onClick={triggerFileInput} className="w-full px-4 py-2 mb-4 bg-blue-500 text-white rounded hover:bg-blue-700">
             Take Image
           </button>
         ) : (
-          <button onClick={() => setImage(null)} className="px-4 py-2 mb-5 bg-red-500 text-white rounded hover:bg-red-700">
+          <button onClick={() => setImage(null)} className="w-full px-4 py-2 mb-4 bg-red-500 text-white rounded hover:bg-red-700">
             Delete Image
           </button>
         )}
       </div>
-      <div className="relative" style={{ width: '75vw', paddingTop: '56.25%' }}> {/* 4:3 Aspect Ratio Container */}
+      <div className="flex justify-center items-center w-full flex-1">
         {image && (
-          <img src={image} alt="Captured" className="absolute top-0 left-0 w-full h-full object-cover" />
+          <img src={image} alt="Captured" className="max-w-md max-h-full object-contain" />
         )}
       </div>
       <input
