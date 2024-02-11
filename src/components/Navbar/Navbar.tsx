@@ -2,6 +2,7 @@
 import React from 'react';
 import Image from "next/image";
 import FluxLogo from "../../../public/flux-no-bg.png";
+import Link from "next/link";
 
 const Navbar = () => {
   return (
@@ -14,14 +15,15 @@ const Navbar = () => {
           </div>
 
           {/* "Flux" text centered */}
-          {/* This div takes up the remaining space and centers the text */}
           <div className="flex-grow text-center">
-            <span className="text-2xl font-semibold whitespace-nowrap dark:text-white pl-16">Flux</span>
+            <span className="text-2xl font-semibold whitespace-nowrap dark:text-white pl-6">Flux</span>
           </div>
 
-          {/* "Get Started" button on the right */}
+          {/* "Login" button on the right, wrapped with Link for navigation */}
           <div className="flex-shrink-0">
-            <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Get started</button>
+            <Link href="/Login" passHref>
+              <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
+            </Link>
           </div>
         </div>
       </nav>
