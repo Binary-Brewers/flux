@@ -33,6 +33,7 @@ export default class OpenAIConnector extends LlmConnectorAbstract {
     }
 
     public getChatCompletion(): Promise<string> {
+        // const completion = await OpenAIConnector.openAI.
         return Promise.resolve("");
     }
 
