@@ -3,8 +3,6 @@ import Navbar from "../components/Navbar/Navbar";
 import ImageCapture from "../components/ImageCapture/ImageCapture";
 
 const Home = () => {
-  console.log('Rendering Home component');
-
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />

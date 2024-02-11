@@ -68,16 +68,27 @@ const CameraCapture: React.FC = () => {
     const files = event.target.files;
     if (files && files[0]) {
       const file = files[0];
+      const mimeType = file.type; // Get MIME type from the file
       const fileReader = new FileReader();
       fileReader.readAsDataURL(file);
       fileReader.onload = (loadEvent) => {
         const result = loadEvent.target?.result;
         if (result) {
           setImageData({ src: result.toString(), name: file.name });
+          // Construct the object to be logged
+          const imageObject = {
+            image: {
+              mime: mimeType, // Use the MIME type obtained from the file
+              data: result.toString().split(',')[1], // Extract only the Base64 encoded data part, excluding the data URL scheme
+            },
+          };
+          console.log(imageObject); // log image object
         }
       };
     }
   };
+  
+  
 
   const triggerFileInput = () => {
     if (fileInputRef.current) {
