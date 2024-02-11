@@ -1,12 +1,11 @@
-"use client";
+// src/components/Login.tsx
 import React from 'react';
-import { useAuth } from "@/hooks/useAuth";
+import { signInWithGoogle } from '@/hooks/useAuth'; // Adjust the import path as needed
 
 const Login = () => {
-    const { signInWithGoogle } = useAuth();
-
     return (
         <div>
+            {/* Other login form elements */}
             <button onClick={signInWithGoogle}>Sign in with Google</button>
         </div>
     );
