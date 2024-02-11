@@ -122,3 +122,12 @@
 // };
 
 // export default AccountSettingsPage;
+
+
+const AccountSettings = () => {
+    return(<div>
+        Hi
+    </div>)
+}
+
+export default AccountSettings;
