@@ -156,7 +156,7 @@
 // };
 
 // export default CameraCapture;
-
+"use client";
 import React, { useState } from 'react';
 
 const CameraCapture: React.FC = () => {
