@@ -184,7 +184,7 @@ const CameraCapture: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start pt-4 h-screen">
+    <div className="flex flex-col items-center justify-start pt-16 h-screen"> {/* Increased base padding-top */}
       <div className="w-full max-w-md px-4">
         {!image ? (
           <button onClick={triggerFileInput} className="w-full px-4 py-2 mb-4 bg-blue-500 text-white rounded hover:bg-blue-700">
@@ -214,3 +214,4 @@ const CameraCapture: React.FC = () => {
 };
 
 export default CameraCapture;
+
