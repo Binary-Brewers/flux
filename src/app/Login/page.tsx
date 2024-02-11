@@ -12,7 +12,7 @@ const Login = () => {
     const handleSignInWithGoogle = async () => {
         try {
             // Pass the router as an argument
-            await signInWithGoogle(router);
+            await signInWithGoogle(router, () => {}, (err: any) => console.log("Error: " + JSON.stringify(err)));
             // No need to push to '/Dashboard' here anymore, it's handled in signInWithGoogle
         } catch (error) {
             console.error('Failed to sign in with Google:', error);

@@ -22,26 +22,26 @@ const Navbar = () => {
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    const handleRouteChange = () => {
-      setIsMenuVisible(false); // Close menu on route change
-    };
+  // useEffect(() => {
+  //   const handleRouteChange = () => {
+  //     setIsMenuVisible(false); // Close menu on route change
+  //   };
 
-    // Close menu when clicking outside of it
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setIsMenuVisible(false);
-      }
-    };
+  //   // // Close menu when clicking outside of it
+  //   // const handleClickOutside = (event: MouseEvent) => {
+  //   //   if (menuRef.current && !menuRef.current.contains(event.target)) {
+  //   //     setIsMenuVisible(false);
+  //   //   }
+  //   // };
 
-    if (isMenuVisible) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
+  //   if (isMenuVisible) {
+  //     // document.addEventListener('mousedown', handleClickOutside);
+  //   }
 
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isMenuVisible]);
+  //   return () => {
+  //     // document.removeEventListener('mousedown', handleClickOutside);
+  //   };
+  // }, [isMenuVisible]);
 
   const handleLogout = async () => {
     try {

@@ -192,8 +192,8 @@ const CameraCapture: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {vocabs?.map((vocab: Vocabulaty) => (
-              <tr>
+            {vocabs?.map((vocab: Vocabulaty, idx: number) => (
+              <tr key={idx}>
                 <td>{vocab.name}</td>
                 <td>{vocab.translation}</td>
               </tr>
