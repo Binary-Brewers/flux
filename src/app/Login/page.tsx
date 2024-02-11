@@ -1,8 +1,25 @@
+"use client";
+
 import React from 'react';
+import { useRouter } from 'next/navigation'; // Import useRouter from next/navigation
 import { signInWithGoogle } from '@/hooks/useAuth'; 
 import Link from "next/link";
 
 const Login = () => {
+    const router = useRouter(); // Use the useRouter hook
+
+    // Wrap the signInWithGoogle call to include router
+    const handleSignInWithGoogle = async () => {
+        try {
+            // Pass the router as an argument
+            await signInWithGoogle(router);
+            // No need to push to '/Dashboard' here anymore, it's handled in signInWithGoogle
+        } catch (error) {
+            console.error('Failed to sign in with Google:', error);
+            // Handle error (e.g., show an error message)
+        }
+    };
+
     return (
         <div>
             <section className="bg-gray-50 dark:bg-gray-900">
@@ -31,7 +48,7 @@ const Login = () => {
                                         </Link>
                                     </div>
                                 </div>
-                                <button onClick={signInWithGoogle} type="button" className="mt-4 w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sign in with Google</button>
+                                <button onClick={handleSignInWithGoogle} type="button" className="mt-4 w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sign in with Google</button>
                             </form>
                         </div>
                     </div>

@@ -1,133 +1,63 @@
-// "use client";
-// import React, { useState } from 'react';
-
-// type Language = 'English' | 'Spanish';
-
-// interface AccountSettingsForm {
-//   firstName: string;
-//   lastName: string;
-//   age: number | '';
-//   password: string;
-//   defaultLanguage: Language;
-//   targetLanguage: Language;
-// }
-
-// const AccountSettingsPage: React.FC = () => {
-//   const [formData, setFormData] = useState<AccountSettingsForm>({
-//     firstName: '',
-//     lastName: '',
-//     age: '',
-//     password: '',
-//     defaultLanguage: 'English',
-//     targetLanguage: 'Spanish',
-//   });
-
-//   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-//     const { name, value } = e.target;
-//     setFormData({
-//       ...formData,
-//       [name]: name === 'age' ? parseInt(value) || '' : value,
-//     });
-//   };
-
-//   const handleSubmit = (e: React.FormEvent) => {
-//     e.preventDefault();
-//     console.log('Form data submitted:', formData);
-//     // Here you would typically send the form data to a server
-//   };
-
-//   return (
-//     <div className="max-w-4xl mx-auto p-4 bg-white text-black">
-//       <h1 className="text-2xl font-bold mb-4">Account Settings</h1>
-//       <form onSubmit={handleSubmit} className="space-y-4">
-//         <div>
-//           <label htmlFor="firstName" className="block text-sm font-medium text-gray-900">First Name</label>
-//           <input
-//             type="text"
-//             name="firstName"
-//             id="firstName"
-//             value={formData.firstName}
-//             onChange={handleChange}
-//             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-//           />
-//         </div>
-//         <div>
-//           <label htmlFor="lastName" className="block text-sm font-medium text-gray-900">Last Name</label>
-//           <input
-//             type="text"
-//             name="lastName"
-//             id="lastName"
-//             value={formData.lastName}
-//             onChange={handleChange}
-//             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-//           />
-//         </div>
-//         <div>
-//           <label htmlFor="age" className="block text-sm font-medium text-gray-900">Age</label>
-//           <input
-//             type="number"
-//             name="age"
-//             id="age"
-//             value={formData.age}
-//             onChange={handleChange}
-//             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-//           />
-//         </div>
-//         <div>
-//           <label htmlFor="password" className="block text-sm font-medium text-gray-900">Password</label>
-//           <input
-//             type="password"
-//             name="password"
-//             id="password"
-//             value={formData.password}
-//             onChange={handleChange}
-//             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-//           />
-//         </div>
-//         <div>
-//           <label htmlFor="defaultLanguage" className="block text-sm font-medium text-gray-900">Default Language</label>
-//           <select
-//             name="defaultLanguage"
-//             id="defaultLanguage"
-//             value={formData.defaultLanguage}
-//             onChange={handleChange}
-//             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-//           >
-//             <option value="English">English</option>
-//             <option value="Spanish">Spanish</option>
-//           </select>
-//         </div>
-//         <div>
-//           <label htmlFor="targetLanguage" className="block text-sm font-medium text-gray-900">Target Language</label>
-//           <select
-//             name="targetLanguage"
-//             id="targetLanguage"
-//             value={formData.targetLanguage}
-//             onChange={handleChange}
-//             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-//           >
-//             <option value="English">English</option>
-//             <option value="Spanish">Spanish</option>
-//           </select>
-//         </div>
-//         <button
-//           type="submit"
-//           className="py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-//         >
-//           Save Changes
-//         </button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default AccountSettingsPage;
-
+"use client";
+import { auth } from '@/firebase/clientApp';
+import React, { useEffect, useState } from 'react';
 
 const AccountSettings = () => {
-    return(<div>
-        Hi
-    </div>)
-}
+    const [name, setName] = useState('Optimus Prime'); // Placeholder, replace with actual data
+    const [email, setEmail] = useState('optimusprime@autobot.com'); // Placeholder, replace with actual data
+    const [currentPassword, setCurrentPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmationMessage, setConfirmationMessage] = useState('');
+
+    useEffect(() => {
+        
+        setEmail(auth.currentUser?.email || "");
+        setName(auth.currentUser?.displayName || "");
+    }, []);
+
+    const handleSubmit = (e:any) => {
+        e.preventDefault();
+        // Implement logic to update user's profile information
+        // Involves calling Firebase Auth or own backend API
+
+        setConfirmationMessage('Your changes have been saved successfully!');
+    };
+
+    return (
+        <div>
+            <section className="bg-gray-50 dark:bg-gray-900">
+                <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+                    <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                        <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+                            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                                Account Settings
+                            </h1>
+                            <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
+                                <div>
+                                    <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your name</label>
+                                    <input type="text" name="name" id="name" value={name} onChange={(e) => setName(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" required />
+                                </div>
+                                <div>
+                                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+                                    <input type="email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" required />
+                                </div>
+                                <div>
+                                    <label htmlFor="currentPassword" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Current password</label>
+                                    <input type="password" name="currentPassword" id="currentPassword" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="••••••••" />
+                                </div>
+                                <div>
+                                    <label htmlFor="newPassword" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New password</label>
+                                    <input type="password" name="newPassword" id="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="••••••••" />
+                                </div>
+                                <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Save changes</button>
+                                {confirmationMessage && <div className="text-green-500 text-center mt-2">{confirmationMessage}</div>}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    );
+};
 
 export default AccountSettings;
