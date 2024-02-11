@@ -1,6 +1,8 @@
+import { ChatCompletionChunk, ChatCompletionCreateParamsBase, ChatCompletionMessageParam } from "openai/resources/chat/completions.mjs";
 import LlmConnectorAbstract from "./LlmConnectorAbstract";
-import { Message, Chat } from "./types";
+import { Chat } from "./types";
 import OpenAI from 'openai';
+import { Stream } from "openai/streaming.mjs";
 
 export default class OpenAIConnector extends LlmConnectorAbstract {
     public static testUrl = "https://api.openai.com/v1/models";
@@ -16,7 +18,7 @@ export default class OpenAIConnector extends LlmConnectorAbstract {
                 apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
               });
 
-            OpenAIConnector.model = "gpt-3.5-turbo";
+            OpenAIConnector.model = process.env["LLM_MODEL_NAME"] || "gpt-4";
               
         }
     }
@@ -32,14 +34,21 @@ export default class OpenAIConnector extends LlmConnectorAbstract {
         }
     }
 
-    public getChatCompletion(): Promise<string> {
-        // const completion = await OpenAIConnector.openAI.
-        return Promise.resolve("");
+    public async getChatCompletionStream(chat: Chat): Promise<Stream<ChatCompletionChunk>> {
+
+        const completion = await OpenAIConnector.openAI.chat.completions.create({
+            model: OpenAIConnector.model, 
+            stream: true,
+            messages: chat.messages,
+            max_tokens: chat.maxTokens ? chat.maxTokens : 300,
+        })
+
+        return Promise.resolve(completion);
     }
 
-    public createCapture(img: BinaryData, prompt: Message): Chat {
+    public createCapture(img: BinaryData, prompt: string): Chat {
 
-        let capture: Chat = {model: "", messages: [prompt]}
+        let capture: Chat = {messages: []}
         
         return capture;
     }
