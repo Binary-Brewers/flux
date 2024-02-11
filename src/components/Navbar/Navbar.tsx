@@ -16,10 +16,11 @@ const Navbar = () => {
 
           {/* "Flux" text centered */}
           <div className="flex-grow text-center">
-            <span className="text-2xl font-semibold whitespace-nowrap dark:text-white pl-7">Flux</span>
+            <Link href="/" passHref className="text-2xl font-semibold whitespace-nowrap dark:text-white pl-7 cursor-pointer">Flux
+            </Link>
           </div>
 
-          {/* "Login" button on the right, wrapped with Link for navigation */}
+          {/* "Login" button on the right */}
           <div className="flex-shrink-0">
             <Link href="/Login" passHref>
               <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
