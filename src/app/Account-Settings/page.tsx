@@ -8,6 +8,7 @@ const AccountSettings = () => {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmationMessage, setConfirmationMessage] = useState('');
+    const [language, setLanguage] = useState('English'); // Default language selection
 
     useEffect(() => {
         
@@ -49,6 +50,21 @@ const AccountSettings = () => {
                                     <label htmlFor="newPassword" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New password</label>
                                     <input type="password" name="newPassword" id="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="••••••••" />
                                 </div>
+                                {/* Language selection dropdown */}
+                                <div>
+                                    <label htmlFor="language" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Translate to:</label>
+                                    <select
+                                        id="language"
+                                        name="language"
+                                        value={language}
+                                        onChange={(e) => setLanguage(e.target.value)}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                    >
+                                        {/* <option value="English">English</option> */}
+                                        <option value="Español">Spanish</option>
+                                        {/* Add more languages here */}
+                                    </select>
+                                </div>
                                 <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Save changes</button>
                                 {confirmationMessage && <div className="text-green-500 text-center mt-2">{confirmationMessage}</div>}
                             </form>
@@ -61,3 +77,4 @@ const AccountSettings = () => {
 };
 
 export default AccountSettings;
+

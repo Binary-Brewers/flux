@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from "next/image";
 import Link from "next/link";
 import { auth } from "@/firebase/clientApp"; // Adjust the import path according to your project structure
@@ -9,6 +9,7 @@ import FluxLogo from "../../../public/flux-no-bg.png";
 const Navbar = () => {
   const [user, setUser] = useState<User | null>(null);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const menuRef = useRef(null); // Ref for the menu container
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -20,6 +21,27 @@ const Navbar = () => {
     });
     return () => unsubscribe();
   }, []);
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setIsMenuVisible(false); // Close menu on route change
+    };
+
+    // Close menu when clicking outside of it
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuVisible(false);
+      }
+    };
+
+    if (isMenuVisible) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMenuVisible]);
 
   const handleLogout = async () => {
     try {
@@ -57,8 +79,9 @@ const Navbar = () => {
                   <span className="px-4 py-2 text-gray-800 dark:text-white">Logged in as: {user.displayName || user.email}</span>
                   <Link href="/account-settings" passHref className="px-4 py-2 text-blue-700 hover:bg-blue-100 dark:hover:bg-gray-700">Account Settings
                   </Link>
-                  <button onClick={handleLogout} className="px-4 py-2 text-red-500 hover:bg-red-100 dark:hover:bg-gray-700">Log out</button>
-                  <button className="px-4 py-2 text-gray-800 dark:text-white">Translating to: English</button>
+                  <Link href="/" onClick={handleLogout}passHref className="px-4 py-2 text-red-500 hover:bg-red-100 dark:hover:bg-gray-700">Log Out
+                </Link>
+                  <button className="px-4 py-2 text-gray-800 dark:text-white">Translating to: Spanish</button>
                 </div>
               ) : (
                 <Link href="/login" passHref className="px-4 py-2 text-blue-700 hover:bg-blue-100 dark:hover:bg-gray-700">Login
