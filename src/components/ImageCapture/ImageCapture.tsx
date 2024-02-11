@@ -156,7 +156,7 @@
 // };
 
 // export default CameraCapture;
-
+"use client";
 import React, { useState } from 'react';
 
 const CameraCapture: React.FC = () => {
@@ -184,14 +184,21 @@ const CameraCapture: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <div className="bg-white flex items-center justify-center mb-5 overflow-hidden">
-        {image ? (
-          <img src={image} alt="Captured" style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
-        ) : (
-          <button onClick={triggerFileInput} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
+    <div className="flex flex-col items-center justify-start pt-16 h-screen"> {/* Increased base padding-top */}
+      <div className="w-full max-w-md px-4">
+        {!image ? (
+          <button onClick={triggerFileInput} className="w-full px-4 py-2 mb-4 bg-blue-500 text-white rounded hover:bg-blue-700">
             Take Image
           </button>
+        ) : (
+          <button onClick={() => setImage(null)} className="w-full px-4 py-2 mb-4 bg-red-500 text-white rounded hover:bg-red-700">
+            Delete Image
+          </button>
+        )}
+      </div>
+      <div className="flex justify-center items-center w-full flex-1">
+        {image && (
+          <img src={image} alt="Captured" className="max-w-md max-h-full object-contain" />
         )}
       </div>
       <input
@@ -202,13 +209,9 @@ const CameraCapture: React.FC = () => {
         ref={fileInputRef}
         className="hidden"
       />
-      {image && (
-        <button onClick={() => setImage(null)} className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700">
-          Remove Image
-        </button>
-      )}
     </div>
   );
 };
 
 export default CameraCapture;
+
