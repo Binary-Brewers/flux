@@ -1,9 +1,15 @@
+"use client";
+import React from 'react';
+import { useAuth } from "@/hooks/useAuth";
+
 const Login = () => {
-    return(
+    const { signInWithGoogle } = useAuth();
+
+    return (
         <div>
-            Testing
+            <button onClick={signInWithGoogle}>Sign in with Google</button>
         </div>
-    )
-}
+    );
+};
 
 export default Login;
