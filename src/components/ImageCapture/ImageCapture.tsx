@@ -61,8 +61,11 @@
 import { sendCapture } from '@/lib/llm/llmClient';
 import { CaptureImage, Vocabulaty } from '@/lib/llm/types';
 import React, { useState } from 'react';
+import LoadingSpinner from '../Utils/LoadingSpinner';
 
 const CameraCapture: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const [imageData, setImageData] = useState<{ src: string; name: string } | null>(null);
   const [response, setResponse] = useState<string>("");
   const [vocabs, setVocabs] = useState<any>(null);
@@ -141,6 +144,7 @@ const CameraCapture: React.FC = () => {
             console.log(imageCapture)
             if(imageCapture) {
               try {
+                setIsLoading(true);
                 console.log("searching...")
                 const res = await sendCapture(imageCapture, "spanish", "objects");
                 const parsedRes = JSON.parse(res.split("```json")[1].split("```")[0]);
@@ -150,19 +154,34 @@ const CameraCapture: React.FC = () => {
                 console.log(e);
                 setResponse("Error generating vocabulary. Try again or choose another picture.");
               }
-
+              setIsLoading(false);
             }
           }}>
             Objects
         </button>
-        <button onClick={async () => imageCapture && setResponse(await sendCapture(imageCapture, "spanish", "story"))}>
+        <button onClick={async () => {
+          setIsLoading(true);
+          if (imageCapture)
+            setResponse(await sendCapture(imageCapture, "spanish", "story"));
+          setIsLoading(false);
+        }}>
           Story
         </button>
-        <button onClick={async () => imageCapture && setResponse(await sendCapture(imageCapture, "spanish", "description"))}>
+        <button onClick={async () => {
+          setIsLoading(true);
+          if (imageCapture)
+            setResponse(await sendCapture(imageCapture, "spanish", "story"));
+          setIsLoading(false);
+        }}>
           Description
         </button>
       </div>
-          
+      <div className="flex flex-row justify-center p-3">
+      {
+        isLoading &&
+        <LoadingSpinner />
+      }
+      </div>
       {vocabs &&
       <div className='flex flex-row w-full justify-center my-3'>
         <table className='border-2 [&_th]:border-2 [&_td]:border-2 [&_*]:p-1'>
